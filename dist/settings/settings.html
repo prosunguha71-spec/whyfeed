@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WhyFeed Settings</title>  <script type="module" crossorigin src="../assets/settings-qaE4fZwY.js"></script>
+  <link rel="modulepreload" crossorigin href="../assets/local-storage-hIYFqJpN.js">
+  <link rel="stylesheet" crossorigin href="../assets/local-storage-CTHdS9cB.css">
+</head>
+<body><div class="page">
+  <div class="head" style="display:flex;justify-content:space-between;align-items:center"><div class="logo"><i>👁</i>WhyFeed Settings</div><a href="../dashboard/dashboard.html">← Dashboard</a></div>
+  <section class="card"><h2>General</h2>
+    <div class="row"><div><b>Enable WhyFeed</b><p class="muted">Master switch for everything below.</p></div><label class="switch"><input type="checkbox" data-s="enabled"><span></span></label></div>
+    <div class="row"><div><b>Recommendation explanations</b><p class="muted">Show a “Why this?” card on recommended videos.</p></div><label class="switch"><input type="checkbox" data-s="explanations"><span></span></label></div>
+    <div class="row"><div><b>Local history analysis</b><p class="muted">Learn from videos you watch and recommendations you see.</p></div><label class="switch"><input type="checkbox" data-s="analyzeHistory"><span></span></label></div>
+    <div class="row"><div><b>Hide “show less” items</b><p class="muted">Visually hide matching cards in your browser only.</p></div><label class="switch"><input type="checkbox" data-s="hideMode"><span></span></label></div>
+  </section>
+  <section class="card"><h2>Scoring weights</h2><p class="muted">Configure how signals contribute to the 0–100 match score. Weights are normalised automatically.</p><div id="weights"></div>
+    <div class="form"><button class="btn sm" id="wreset">Restore defaults</button></div></section>
+  <section class="card"><h2>Your data</h2><p class="muted">Export a JSON backup, import one, or erase everything WhyFeed has stored.</p>
+    <div class="form"><button class="btn primary" id="exp">Export JSON</button><button class="btn" id="imp">Import JSON</button><button class="btn danger" id="clear">Clear all data</button></div>
+    <input type="file" id="file" accept="application/json" hidden><p id="msg" class="muted" style="margin-top:10px"></p></section>
+  <section class="card"><h2>Privacy</h2><ul class="list">
+    <li><span><b>Collected locally:</b> titles, channel names and video IDs of videos you watch (15+ s) and recommendations shown, plus keyword counts.</span></li>
+    <li><span><b>Never collected:</b> account info, passwords, cookies, comments, search queries, or anything from other sites.</span></li>
+    <li><span><b>Never uploaded:</b> there is no server, no analytics and no network request. Data lives in Chrome's local extension storage.</span></li>
+    <li><span><b>Permissions:</b> “storage” and access to www.youtube.com only.</span></li>
+    <li><span><b>Honesty:</b> explanations are estimates from your local patterns. WhyFeed does not know YouTube's internal algorithm and cannot change it.</span></li></ul></section>
+</div></body></html>

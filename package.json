@@ -1,0 +1,23 @@
+{
+  "name": "whyfeed",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "WhyFeed - privacy-first YouTube recommendation transparency extension",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "dev": "node build.mjs --watch",
+    "dev:pwa": "vite --config vite.pwa.config.ts",
+    "build:pwa": "vite build --config vite.pwa.config.ts",
+    "preview:pwa": "vite preview --config vite.pwa.config.ts --outDir dist-pwa --host"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "typescript": "^5.4.0",
+    "vite": "^5.4.0"
+  }
+}

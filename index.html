@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WhyFeed – Understand why YouTube recommends what it does</title>
+<meta name="description" content="A privacy-first Chrome extension that estimates why YouTube recommends each video, using only your local viewing patterns.">
+<style>
+:root{--bg:#0B1020;--bg2:#121A2B;--card:#192438;--line:#26344f;--a:#7C5CFC;--b:#20C997;--m:#A0AEC0;--w:#F6AD55}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(900px 500px at 75% -5%,rgba(124,92,252,.28),transparent 60%),radial-gradient(700px 400px at 0% 30%,rgba(32,201,151,.10),transparent 60%),var(--bg);color:#fff;font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit;text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:20px}.logo i{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--b));display:grid;place-items:center;font-style:normal}
+nav .l{display:flex;gap:26px;color:var(--m);font-weight:500}nav .l a:hover{color:#fff}
+.btn{display:inline-block;padding:12px 22px;border-radius:12px;font-weight:700;border:1px solid var(--line);background:var(--bg2);transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--a)}.btn.p{background:linear-gradient(135deg,var(--a),#5B3FD6);border-color:transparent;box-shadow:0 8px 28px rgba(124,92,252,.4)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:56px 0 80px}
+.pill{display:inline-block;padding:5px 12px;border-radius:999px;background:rgba(32,201,151,.12);color:var(--b);font-size:13px;font-weight:700;margin-bottom:18px}
+h1{font-size:clamp(36px,5.4vw,60px);line-height:1.08;margin:0 0 18px;letter-spacing:-.03em}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--m);font-size:19px;max-width:540px;margin:0 0 28px}.cta{display:flex;gap:12px;flex-wrap:wrap}
+.mock{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:fl 6s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.thumb{height:140px;border-radius:12px;background:linear-gradient(135deg,#2b3a63,#3b2a63);display:grid;place-items:center;font-size:42px}
+.mock h4{margin:12px 0 2px;font-size:15px}.mock small{color:var(--m)}
+.why{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.why b{color:var(--b);font-size:12px;letter-spacing:.5px;text-transform:uppercase}.why p{margin:6px 0 10px;font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}.tags span{background:var(--bg2);padding:3px 9px;border-radius:7px;font-size:12px;color:var(--m)}
+.bar{height:6px;background:var(--bg2);border-radius:4px;margin:10px 0 0;overflow:hidden}.bar i{display:block;width:82%;height:100%;background:linear-gradient(90deg,var(--a),var(--b))}
+section{padding:70px 0}.sec h2{font-size:clamp(28px,4vw,40px);margin:0 0 10px;letter-spacing:-.02em;text-align:center}.sec .sub{color:var(--m);text-align:center;max-width:620px;margin:0 auto 40px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.f{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;transition:.25s}
+.f:hover{transform:translateY(-4px);border-color:var(--a)}.f .ic{font-size:26px;margin-bottom:10px}.f h3{margin:0 0 6px;font-size:18px}.f p{margin:0;color:var(--m);font-size:15px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.st{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:22px;counter-increment:s}
+.st:before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b));font-weight:800;margin-bottom:12px}
+.st h3{margin:0 0 4px;font-size:17px}.st p{margin:0;color:var(--m);font-size:14px}
+.score{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:10px}
+.score div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}.score b{display:block;font-size:26px;color:var(--b)}.score span{color:var(--m);font-size:13px}
+.priv{background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(32,201,151,.10));border:1px solid var(--line);border-radius:24px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.priv h2{text-align:left;margin:0 0 10px;font-size:34px}.priv ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.priv li{background:rgba(11,16,32,.55);padding:12px 16px;border-radius:12px}.priv li:before{content:"✓ ";color:var(--b);font-weight:800}
+.warn{margin-top:26px;border-left:3px solid var(--w);padding:12px 16px;background:rgba(246,173,85,.08);border-radius:0 12px 12px 0;color:#e8cba4;font-size:14px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px;overflow:auto;color:#cfe;font-size:14px;margin:0}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--m);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(max-width:900px){.hero,.priv{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.score{grid-template-columns:repeat(2,1fr)}nav .l{display:none}}
+@media(max-width:560px){.grid,.steps{grid-template-columns:1fr}}
+.rv{opacity:0;transform:translateY(16px);transition:.6s}.rv.on{opacity:1;transform:none}
+</style></head><body>
+<div class="wrap">
+<nav><div class="logo"><i>👁</i>WhyFeed</div><div class="l"><a href="#features">Features</a><a href="#how">How it works</a><a href="#privacy">Privacy</a><a href="#install">Install</a></div><a class="btn p" href="#install">Get the extension</a></nav>
+<header class="hero">
+  <div><span class="pill">Algorithm transparency · 100% local</span>
+  <h1>See <em>why</em> YouTube recommends what it does.</h1>
+  <p class="lead">WhyFeed adds a clear, honest explanation to every recommended video, built from your own viewing patterns. No servers. No tracking. No guesswork presented as fact.</p>
+  <div class="cta"><a class="btn p" href="#install">Install in 2 minutes</a><a class="btn" href="#how">See how it works</a></div></div>
+  <div class="mock"><div class="thumb">▶</div><h4>Python Algorithms Explained Fast</h4><small>CodeWithHarry · 1.2M views</small>
+    <div class="why"><b>Estimated reason</b><p>Possibly recommended because you frequently watch CodeWithHarry.</p>
+    <div class="tags"><span>Match 82/100</span><span>Confidence: High</span><span>Topic: python</span></div><div class="bar"><i></i></div></div></div>
+</header></div>
+
+<section id="features" class="sec"><div class="wrap"><h2>Everything you need to read your feed</h2><p class="sub">Explanations, analytics and control, all running inside your browser.</p>
+<div class="grid">
+<div class="f rv"><div class="ic">💡</div><h3>“Why this?” cards</h3><p>Every recommendation gets an estimated reason, a confidence level, the matching topic or channel and the evidence behind it.</p></div>
+<div class="f rv"><div class="ic">📊</div><h3>Feed analytics</h3><p>Top topics, favourite channels, category mix, watch activity and recommendation distribution in interactive charts.</p></div>
+<div class="f rv"><div class="ic">🫧</div><h3>Filter-bubble indicator</h3><p>Spot repeated content patterns and see how concentrated your recommendations are on a few topics.</p></div>
+<div class="f rv"><div class="ic">🎛️</div><h3>Feed customization</h3><p>Show less or more of a topic, reduce channels, add preferred topics. Applied locally, never claimed as a server change.</p></div>
+<div class="f rv"><div class="ic">⚙️</div><h3>Configurable scoring</h3><p>Tune how channel, topic, recent activity, category and popularity signals are weighted. Fully inspectable.</p></div>
+<div class="f rv"><div class="ic">📦</div><h3>Export &amp; import</h3><p>Back up your data as JSON, restore it later, or erase everything with one click.</p></div></div></div></section>
+
+<section id="how" class="sec"><div class="wrap"><h2>How it works</h2><p class="sub">A transparent pipeline you can verify in the open-source code.</p>
+<div class="steps"><div class="st rv"><h3>Detect</h3><p>A content script finds recommendation cards as YouTube loads them.</p></div><div class="st rv"><h3>Read</h3><p>Only visible info: title, channel, video ID, view count.</p></div><div class="st rv"><h3>Score</h3><p>Compared against your local history with a weighted 0–100 model.</p></div><div class="st rv"><h3>Explain</h3><p>A short, hedged explanation appears beside the video.</p></div></div>
+<div class="score"><div><b>35%</b><span>Channel match</span></div><div><b>30%</b><span>Topic match</span></div><div><b>20%</b><span>Recent activity</span></div><div><b>10%</b><span>Category match</span></div><div><b>5%</b><span>Popularity</span></div></div>
+<div class="warn"><b>Honesty first:</b> WhyFeed never claims to know YouTube's internal algorithm. Every explanation is an estimate from observable data.</div></div></section>
+
+<section id="privacy" class="sec"><div class="wrap"><div class="priv"><div><h2>Privacy is the product</h2><p style="color:var(--m)">Your watch history is yours. WhyFeed has no backend, so there is nothing to leak.</p></div>
+<ul><li>All analysis happens locally in your browser</li><li>Nothing is ever uploaded and there are no analytics</li><li>Only “storage” permission and youtube.com access</li><li>Clear all data any time from Settings</li></ul></div></div></section>
+
+<section id="install" class="sec"><div class="wrap"><h2>Install in four steps</h2><p class="sub">Run the build once, then load it into Chrome in Developer mode.</p>
+<pre>cd whyfeed
+npm install
+npm run build
+# Chrome → chrome://extensions → enable Developer mode
+# → Load unpacked → select the "dist" folder</pre></div></section>
+<div class="wrap"><footer><span>© WhyFeed · Algorithm Transparency Extension</span><span>Not affiliated with YouTube or Google.</span></footer></div>
+<script>const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('on')),{threshold:.15});document.querySelectorAll('.rv').forEach(n=>io.observe(n));</script>
+</body></html>

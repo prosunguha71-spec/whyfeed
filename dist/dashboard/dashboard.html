@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WhyFeed Dashboard</title>  <script type="module" crossorigin src="../assets/dashboard-1-k48eau.js"></script>
+  <link rel="modulepreload" crossorigin href="../assets/local-storage-hIYFqJpN.js">
+  <link rel="modulepreload" crossorigin href="../assets/channel-analyzer-8Iba_CZ1.js">
+  <link rel="stylesheet" crossorigin href="../assets/local-storage-CTHdS9cB.css">
+</head>
+<body><div class="app">
+  <aside class="side">
+    <div class="logo"><i>👁</i>WhyFeed</div>
+    <a class="on" href="#overview">Overview</a><a href="#charts">Analytics</a><a href="#controls">Feed controls</a><a href="#insights">Insights</a>
+    <div class="grow"></div><a href="../settings/settings.html">Settings &amp; privacy</a>
+    <p class="muted" style="font-size:11px;padding:8px 12px">🔒 All data stays on this device.</p>
+  </aside>
+  <main class="main">
+    <div class="head" id="overview"><div><h1>Feed analysis</h1><p class="muted">Estimates based on what WhyFeed has observed locally. Not YouTube's real algorithm.</p></div>
+      <a class="btn primary" href="https://www.youtube.com" target="_blank">Open YouTube</a></div>
+    <section class="stats" id="stats"></section>
+    <section class="grid" id="charts">
+      <div class="card c8"><h2>Watch activity (14 days)</h2><div class="chart"><canvas id="cActivity"></canvas></div><div class="empty">No watch activity yet. Watch a few videos for 15+ seconds.</div></div>
+      <div class="card c4"><h2>Category distribution</h2><div class="chart"><canvas id="cCategory"></canvas></div><div class="empty">No data yet.</div></div>
+      <div class="card c6"><h2>Top 10 watched topics</h2><div class="chart"><canvas id="cTopics"></canvas></div><div class="empty">No topics yet.</div></div>
+      <div class="card c6"><h2>Most watched channels</h2><div class="chart"><canvas id="cChannels"></canvas></div><div class="empty">No channels yet.</div></div>
+      <div class="card c6"><h2>Recommendation topics (what YouTube shows you)</h2><div class="chart"><canvas id="cRecs"></canvas></div><div class="empty">Browse the YouTube home page to collect data.</div></div>
+      <div class="card c6" id="insights"><h2>Filter bubble indicator</h2><div id="bubble"></div><h3 style="margin-top:16px">Repeated content patterns</h3><ul class="list" id="patterns"></ul></div>
+    </section>
+    <section class="card c12" id="controls">
+      <h2>Feed controls</h2>
+      <p class="muted">Applied locally in your browser by hiding or highlighting cards. This does <b>not</b> change YouTube's server-side algorithm.</p>
+      <div class="form"><input type="text" id="topicIn" placeholder="Topic, e.g. python"><button class="btn sm" data-add="less">Show less</button><button class="btn sm" data-add="more">Show more</button><button class="btn sm" data-add="pref">Add preferred</button></div>
+      <div class="form"><input type="text" id="chanIn" placeholder="Channel name"><button class="btn sm" data-add="chan">Reduce channel</button></div>
+      <div class="grid" style="margin-top:14px">
+        <div class="c6"><h3>Show less of</h3><div class="chips" id="lessT"></div></div><div class="c6"><h3>Show more of</h3><div class="chips" id="moreT"></div></div>
+        <div class="c6"><h3>Preferred topics</h3><div class="chips" id="prefT"></div></div><div class="c6"><h3>Reduced channels</h3><div class="chips" id="lessC"></div></div>
+      </div>
+      <div class="form"><button class="btn danger" id="reset">Reset feed preferences</button></div>
+    </section>
+  </main></div></body></html>
